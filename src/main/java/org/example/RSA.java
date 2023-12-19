@@ -11,12 +11,12 @@ public class RSA {
     private BigInteger e;
     private BigInteger d;
 
-    public RSA(BigInteger p, BigInteger q) {
-        this.p = p;
-        this.q = q;
+    public RSA(int nLen, int eLen) {
+        this.p = PrimeGenerator.generatePrimeNumber(nLen);
+        this.q = PrimeGenerator.generatePrimeNumber(nLen);
         this.n = p.multiply(q);
         this.phi = p.subtract(BigInteger.ONE).multiply(q.subtract(BigInteger.ONE));
-        this.e = choosePublicExponent(phi);
+        this.e = choosePublicExponent(phi, eLen);
         this.d = this.calculatePrivateKey();
     }
 
@@ -51,9 +51,9 @@ public class RSA {
         return plaintextBuilder.toString();
     }
 
-    private static BigInteger choosePublicExponent(BigInteger phiN) {
+    private static BigInteger choosePublicExponent(BigInteger phiN, int eLen) {
         // Start with a candidate value for e (commonly used value: 65537)
-        BigInteger e = BigInteger.valueOf(65537);
+        BigInteger e = PrimeGenerator.generatePrimeNumber(eLen);
 
         // Check if e and phi(n) are coprime
         while (!e.gcd(phiN).equals(BigInteger.ONE)) {
@@ -94,6 +94,8 @@ public class RSA {
     }
 
     public String showKeys() {
-        return e.toString() + System.lineSeparator() + d.toString() + System.lineSeparator() + n.toString();
+        return "Public encryptor: " + e.toString() + System.lineSeparator() +
+               "Public N multiply: " + n.toString() + System.lineSeparator() +
+                "Private decryptor: " + d.toString() + System.lineSeparator();
     }
 }
