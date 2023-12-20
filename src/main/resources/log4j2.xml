@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- INFO PREVENTS FROM PRINTING LOGS FROM LOGGER-->
+<!-- USE ONE LOGGER AND FILTERS maxLevel is bottom filter, minLevel is top filter!-->
+<!-- SO YOU CAN USE <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/> A ATTR-->
+<!-- OR YOU CAN USE <LevelRangeFilter maxLevel="INFO"/> AS TAG-->
+<!-- REMEMBER SMTP SIGNATURE< APP PASSWORDS FROM GOOGLE AND BUFFER SIZE FOR EMAIL LETTERS (SENDS LAST N REMORTS-->
+<!-- ZERO MEANS ONLY CURRENT LOG WILL BE SENT, ONE MEANS ONE PREVIOUS LOG WILL BE SENT-->
+<!-- Use STARTTLS instead of SMTPS -->
+<!-- <STARTTLS enable="true" />-->
+<!-- AND PORT 587 NOT 465 !-->
+
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <LevelRangeFilter maxLevel="WARN"/>
+            <PatternLayout disableAnsi="false"  pattern="%highlight{%d{HH:mm:ss.SSS} %-5level %logger{36}.%M() @%L - %msg%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=white, DEBUG=green bold, TRACE=blue}"/>
+        </Console>
+<!--        <File name="FileAppenderAll" fileName="logs/logs-${date:yyyy.MM.dd}.log" immediateFlush="false" append="true">-->
+<!--            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c:%L %-5level %logger{36} - %msg%n"/>-->
+<!--        </File>-->
+        <File name="FileAppenderInfo" fileName="logs/info-${date:yyyy.MM.dd}.log" immediateFlush="false" append="true">
+            <LevelRangeFilter maxLevel="INFO"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c:%L %-5level %logger{36} - %msg%n"/>
+        </File>
+<!--        <SMTP name="Mailer" subject="Error Log" to="gogolbohdan2005@gmail.com" from="gogolbohdan2005@gmail.com"-->
+<!--              smtpHost="smtp.gmail.com" smtpPort="465" smtpUsername="gogolbohdan2005@gmail.com" smtpPassword="ybol zfim ilqx rcct" smtpProtocol="smtps"-->
+<!--              bufferSize="5">-->
+<!--            <LevelRangeFilter maxLevel="ERROR"/>-->
+<!--            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c:%L - %m%n" />-->
+<!--        </SMTP>-->
+    </Appenders>
+    <Loggers>
+        <!--        <Logger name="org.example" level="error">-->
+        <!--            &lt;!&ndash; SEND EMAIL&ndash;&gt;-->
+        <!--            <AppenderRef ref="FileAppenderInfo"/>-->
+        <!--            <AppenderRef ref="FileAppender"/>-->
+        <!--            <AppenderRef ref="ConsoleAppender"/>-->
+        <!--        </Logger>-->
+
+        <!-- TRACE Logger -->
+        <Logger name="org.example" level="TRACE">
+<!--            <AppenderRef ref="Mailer"/>-->
+<!--            <AppenderRef ref="FileAppenderAll"/>-->
+            <AppenderRef ref="FileAppenderInfo"/>
+            <AppenderRef ref="ConsoleAppender"/>
+        </Logger>
+
+        <Root level="error">
+        </Root>
+    </Loggers>
+</Configuration>

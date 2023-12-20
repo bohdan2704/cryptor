@@ -1,8 +1,9 @@
 package org.example.eliptic;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
-public class EllipticCurve {
+public class EllipticCurve implements Serializable {
 
     // The three parameters of the elliptic curve equation.
     private BigInteger a;
@@ -20,51 +21,51 @@ public class EllipticCurve {
         this.p = p;
         this.basePoint = g;
     }
-
+//
     public EllipticCurve(BigInteger a, BigInteger b, BigInteger p) {
         this(a, b, p, null);
     }
-
-    public EllipticCurve(long a, long b, long p, Point g) {
-        this(BigInteger.valueOf(a), BigInteger.valueOf(b), BigInteger.valueOf(p), g);
-    }
-
-    public EllipticCurve(long a, long b, long p) {
-        this(a, b, p, null);
-    }
-
-    public BigInteger getA() {
-        return a;
-    }
-
-    public BigInteger getB() {
-        return b;
-    }
-
-    public BigInteger getP() {
-        return p;
-    }
-
-    public Point getBasePoint() {
-        return basePoint;
-    }
-
-    public void setBasePoint(Point p) {
-        basePoint = p;
-    }
+//
+//    public EllipticCurve(long a, long b, long p, Point g) {
+//        this(BigInteger.valueOf(a), BigInteger.valueOf(b), BigInteger.valueOf(p), g);
+//    }
+//
+//    public EllipticCurve(long a, long b, long p) {
+//        this(a, b, p, null);
+//    }
+//
+//    public BigInteger getA() {
+//        return a;
+//    }
+//
+//    public BigInteger getB() {
+//        return b;
+//    }
+//
+//    public BigInteger getP() {
+//        return p;
+//    }
+//
+//    public Point getBasePoint() {
+//        return basePoint;
+//    }
+//
+//    public void setBasePoint(Point p) {
+//        basePoint = p;
+//    }
 
     /**
      * This method will check whether a point belong to this curve or not.
      */
-    public boolean contains(Point point) {
-        if (point.isInfinity()) {
-            return true;
-        }
-
-        return point.getX().multiply(point.getX()).mod(p).add(a).multiply(point.getX()).add(b)
-                .mod(p).subtract(point.getY().multiply(point.getY())).mod(p)
-                .compareTo(BigInteger.ZERO) == 0;
-    }
+//    public boolean contains(Point point) {
+//        if (point.isInfinity()) {
+//            return true;
+//        }
+//
+//        return point.getX().multiply(point.getX()).mod(p).add(a).multiply(point.getX()).add(b)
+//                .mod(p).subtract(point.getY().multiply(point.getY())).mod(p)
+//                .compareTo(BigInteger.ZERO) == 0;
+//    }
 
     /**
      * add two point
@@ -109,12 +110,12 @@ public class EllipticCurve {
     /**
      * Subtract two points, according to this equation: p1 - p2 = p1 + (-p2),
      */
-    public Point subtract(Point p1, Point p2) {
-        if (p1 == null || p2 == null) {
-            return null;
-        }
-        return add(p1, p2.negate());
-    }
+//    public Point subtract(Point p1, Point p2) {
+//        if (p1 == null || p2 == null) {
+//            return null;
+//        }
+//        return add(p1, p2.negate());
+//    }
 
     /**
      * Multiply p1 to a scalar n. That is, perform addition n times.
@@ -135,32 +136,32 @@ public class EllipticCurve {
 
         return result;
     }
-
-    public Point multiply(Point p1, long n) {
-        return multiply(p1, BigInteger.valueOf(n));
-    }
-
-    /**
-     * Calculate the right hand side of the equation.
-     */
-    public BigInteger calculateRhs(BigInteger x) {
-        return x.multiply(x).mod(p).add(a).multiply(x).add(b).mod(p);
-    }
-
-    public static void main(String[] args) {
-        // This computes (2, 4) + (5, 9) in y^2 = x^3 + x + 6 mod 11
-        EllipticCurve e = new EllipticCurve(4, 20, 29);
-        Point p = new Point(1, 5);
-        Point q = new Point(5, 9);
-
-        System.out.println(p + " + " + q + " = " + e.add(p, q));
-        for (int i = 0; i < 20; ++i) {
-            System.out.println(p + " x " + i + " = " + e.multiply(p, i));
-        }
-    }
+//
+//    public Point multiply(Point p1, long n) {
+//        return multiply(p1, BigInteger.valueOf(n));
+//    }
+//
+//    /**
+//     * Calculate the right hand side of the equation.
+//     */
+//    public BigInteger calculateRhs(BigInteger x) {
+//        return x.multiply(x).mod(p).add(a).multiply(x).add(b).mod(p);
+//    }
+////
+//    public static void main(String[] args) {
+//        // This computes (2, 4) + (5, 9) in y^2 = x^3 + x + 6 mod 11
+//        EllipticCurve e = new EllipticCurve(4, 20, 29);
+//        Point p = new Point(1, 5);
+//        Point q = new Point(5, 9);
+//
+//        System.out.println(p + " + " + q + " = " + e.add(p, q));
+//        for (int i = 0; i < 20; ++i) {
+//            System.out.println(p + " x " + i + " = " + e.multiply(p, i));
+//        }
+//    }
 
     @Override
     public String toString() {
-        return "EllipticCurve EC : " + "y^2 = x^3 + " + a + "x + " + b + "c mod " + p + "\nGenerator point G = " + basePoint + '}';
+        return "EllipticCurve EC : " + "y^2 = x^3 + " + a + "x + " + b + "c mod " + p;
     }
 }

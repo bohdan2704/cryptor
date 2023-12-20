@@ -26,7 +26,19 @@ public class RSA {
         return dBigInteger;
     }
 
-    public String encrypt(String message) {
+    public String encrypt(String message, BigInteger e, BigInteger n) {
+        StringBuilder ciphertextBuilder = new StringBuilder();
+        for (int i = 0; i < message.length(); i++) {
+            char c = message.charAt(i);
+            BigInteger m = BigInteger.valueOf((int) c);
+            BigInteger encrypted = m.modPow(e, n);
+            ciphertextBuilder.append(encrypted).append(" ");
+        }
+        // Get normal string, not ASCII
+        return ciphertextBuilder.toString();
+    }
+
+    public String encrypt(String message, BigInteger e, BigInteger n) {
         StringBuilder ciphertextBuilder = new StringBuilder();
         for (int i = 0; i < message.length(); i++) {
             char c = message.charAt(i);

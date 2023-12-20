@@ -1,8 +1,9 @@
 package org.example.eliptic;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
-public class Point {
+public class Point implements Serializable {
 
     private BigInteger x;
     private BigInteger y;
