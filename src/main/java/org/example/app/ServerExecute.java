@@ -1,12 +1,14 @@
-package org.example;
+package org.example.app;
 
 import org.example.helpful.PrimeGenerator;
 import org.example.rsa.RSA;
 
+import java.io.BufferedReader;
+import java.io.PrintWriter;
 import java.math.BigInteger;
 
-public class Main {
-    public static void main(String[] args) {
+public class ServerExecute implements Execute {
+    public void executeRSA(PrintWriter out, BufferedReader in) {
         BigInteger bigInteger1 = PrimeGenerator.generatePrimeNumber(128);
         BigInteger bigInteger2 = PrimeGenerator.generatePrimeNumber(128);
         // MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJaMRJ2zQ0poqtmm7PjNFpLxlJrSYZMW7NUDPMMAwD3QzKz4txFjrfKznSq9TtnQFf6LNX4J5YlISVavf0cy0qUCAwEAAQ==
@@ -27,4 +29,13 @@ public class Main {
         System.out.println("Decrypted message: " + decryptedAsciiString);
     }
 
+    @Override
+    public void executeECDH(PrintWriter out, BufferedReader in) {
+        System.out.println("ServerExecuteECDH");
+    }
+
+    @Override
+    public void executeAES(PrintWriter out, BufferedReader in) {
+        System.out.println("ServerExecuteAES");
+    }
 }

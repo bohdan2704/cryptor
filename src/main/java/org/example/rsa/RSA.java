@@ -1,7 +1,8 @@
-package org.example;
+package org.example.rsa;
+
+import org.example.helpful.PrimeGenerator;
 
 import java.math.BigInteger;
-import java.util.Random;
 
 public class RSA {
     private BigInteger p;
@@ -94,8 +95,8 @@ public class RSA {
     }
 
     public String showKeys() {
-        return "Public encryptor: " + e.toString() + System.lineSeparator() +
-               "Public N multiply: " + n.toString() + System.lineSeparator() +
-                "Private decryptor: " + d.toString() + System.lineSeparator();
+        return "Public encryptor: " + e.toString() + " (" + e.toString(2).length() + ") bits" + System.lineSeparator() +
+               "Public N multiply: " + n.toString() + " (" + n.toString(2).length() + ") bits" + System.lineSeparator()+
+                "Private decryptor: " + d.toString() + " (" + d.toString(2).length() + ") bits" + System.lineSeparator();
     }
 }
